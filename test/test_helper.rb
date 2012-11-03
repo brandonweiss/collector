@@ -7,3 +7,11 @@ require "collector"
 
 require "minitest/autorun"
 require "mocha"
+
+class MiniTest::Spec
+
+  after do
+    Timecop.return
+  end
+
+end
