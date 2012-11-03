@@ -3,5 +3,13 @@ require "collector/version"
 require "collector/model"
 
 module Collector
-  # Your code goes here...
+
+  def self.connection
+    @@connection
+  end
+
+  def self.connection=(connection)
+    @@connection = connection
+  end
+
 end
