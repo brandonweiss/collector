@@ -76,6 +76,49 @@ PickleRepository.save(pickle)
 
 Collector will only work with 1.9.x and above. Specifically it's tested with 1.9.2 and 1.9.3.
 
+## FAQ
+
+### What databases does it support?
+
+Currently only MongoDB. I'd like to add an in-memory store, and if possible, a file store and Redis store.
+
+### Why is this better than an ORM?
+
+If you don't already know why you need or want the Repository Pattern, then don't use it yet. It took me far longer than it should have to realize the benefits, despite having them explained to me many times. I just never really understood them until I'd actually experienced the pain this pattern solves myself. Once you do, come back and try it out.
+
+### This looks awfully similar to [curator](http://github.com/braintreee/curator). What's the difference?
+
+I rolled my own application-specific version of the Repository Pattern for each project I worked on before I realized I was using it often enough to merit extracting it into a gem. Right about that time Braintree announced curator, and since both their implentation and mine were very similar—except theirs was further along and had more features—I decided to use theirs instead. But after using it for a few months and then reading through the code to try and contribute back to it, I decided to go back to my own implementation and extract it into a gem after all.
+
+The biggest diference between curator and collector is that although curator is open source, I feel like a lot of the decisions made were and are in the interest of Braintree and the people that work there, rather than what is best for the project and the people who use it. The specific, functional differens are:
+
+<table>
+  <thead>
+    <tr>
+      <td>Project</td>
+      <td>Stores</td>
+      <td>Test suite</td>
+      <td>Ruby version(s)</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>collector</td>
+      <td>MongoDB</td>
+      <td>MiniTest</td>
+      <td>1.9.x</td>
+    </tr>
+
+    <tr>
+      <td>curator</td>
+      <td>MongoDB, Riak, In-memory</td>
+      <td>RSpec</td>
+      <td>1.9.x, 1.8.7</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Contributing
 
 1. Fork it
