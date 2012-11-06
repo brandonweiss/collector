@@ -1,3 +1,5 @@
+require "active_support/core_ext/hash/keys"
+
 module Collector
   module Model
 
@@ -6,14 +8,14 @@ module Collector
     end
 
     def initialize(attributes = {})
+      attributes.symbolize_keys!
+
       attributes.each do |attribute, value|
         send("#{attribute}=", value) if methods.include? "#{attribute}=".to_sym
       end
 
-      created_at = attributes["created_at"] || attributes[:created_at]
-      updated_at = attributes["updated_at"] || attributes[:updated_at]
-      instance_variable_set("@created_at", created_at) if created_at
-      instance_variable_set("@updated_at", updated_at) if updated_at
+      instance_variable_set("@created_at", attributes[:created_at]) if attributes[:created_at]
+      instance_variable_set("@updated_at", attributes[:updated_at]) if attributes[:updated_at]
     end
 
     def touch
