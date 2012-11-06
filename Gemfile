@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 group :test do
+  gem "rake",     "~> 0.9.2.2"
   gem "turn",     "~> 0.9.6"
   gem "minitest", "~> 4.1.0"
   gem "mocha",    "~> 0.12.7", require: false

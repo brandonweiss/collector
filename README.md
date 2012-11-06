@@ -1,5 +1,6 @@
 # Collector
 
+[![Build Status](https://travis-ci.org/brandonweiss/collector.png)](https://travis-ci.org/brandonweiss/collector)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/brandonweiss/collector)
 
 _Collector isn't ready for use just yet. When it has a basic feature set and is stable I will bump the minor version (to 0.1.0). Until then it's still effectively pre-release._
