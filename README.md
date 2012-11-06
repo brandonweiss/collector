@@ -6,11 +6,11 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'collector'
+    gem "collector"
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
