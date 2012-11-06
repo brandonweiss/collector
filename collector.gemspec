@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Collector::VERSION
   gem.authors       = ["Brandon Weiss"]
   gem.email         = ["brandon@anti-pattern.com"]
-  gem.description   = %q{An implementation of the Repository Pattern}
-  gem.summary       = %q{An implementation of the Repository Pattern}
+  gem.description   = %q{An implementation of the Repository Pattern for MongoDB.}
+  gem.summary       = %q{An implementation of the Repository Pattern for MongoDB}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
