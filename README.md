@@ -23,6 +23,11 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
+### Configure a connection
+
+```ruby
+Collector.connection = Mongo::Connection.new
+```
 
 ## Contributing
 
