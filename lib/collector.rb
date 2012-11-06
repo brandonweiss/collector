@@ -1,6 +1,7 @@
 require "collector/version"
 
 require "collector/model"
+require "collector/repository"
 
 module Collector
 
