@@ -55,7 +55,7 @@ Models automatically create and update timestamps for `created_at` and `updated_
 
 ### Repositories
 
-Include `Collector::Repository` in your repository objects to turn them into repositories. Use the same inflection as your model's name (singular).
+Include `Collector::Repository` in an object to turn it into a repository for a model of the same name. Use the same inflection as your model's name (singular).
 
 ```ruby
 class PickleRepository
@@ -71,6 +71,10 @@ Repositories can save models.
 pickle = Pickle.new(brine: "vinegar", started_at: Time.now)
 PickleRepository.save(pickle)
 ```
+
+### Requirements
+
+Collector will only work with 1.9.x and above. Specifically it's tested with 1.9.2 and 1.9.3.
 
 ## Contributing
 
