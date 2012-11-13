@@ -23,5 +23,11 @@ module Collector
       @updated_at   = Time.now.utc
     end
 
+    def attributes
+      instance_variables.each_with_object({}) do |instance_variable, hash|
+        hash[instance_variable.to_s[1..-1]] = instance_variable_get(instance_variable)
+      end
+    end
+
   end
 end

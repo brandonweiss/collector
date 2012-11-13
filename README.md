@@ -23,10 +23,53 @@ Or install it yourself as:
 
 ## Usage
 
-### Configure a connection
+### Configuration
+
+Set up a connection.
 
 ```ruby
 Collector.connection = Mongo::Connection.new
+```
+
+### Models
+
+Include `Collector::Model` in your domain objects to turn them into models. Create accessors for any attributes.
+
+```ruby
+class Pickle
+
+  include Collector::Model
+
+  attr_accessor :brine, :started_at
+
+end
+```
+
+Models can be instantiated with a hash of attributes.
+
+```ruby
+Pickle.new(brine: "vinegar", started_at: Time.now)
+```
+
+Models automatically create and update timestamps for `created_at` and `updated_at`.
+
+### Repositories
+
+Include `Collector::Repository` in your repository objects to turn them into repositories. Use the same inflection as your model's name (singular).
+
+```ruby
+class PickleRepository
+
+  include Collector::Repository
+
+end
+```
+
+Repositories can save models.
+
+```ruby
+pickle = Pickle.new(brine: "vinegar", started_at: Time.now)
+PickleRepository.save(pickle)
 ```
 
 ## Contributing

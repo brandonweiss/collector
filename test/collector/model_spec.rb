@@ -34,8 +34,7 @@ describe Collector::Model do
     test_model.updated_at.must_equal now
   end
 
-  describe "touch" do
-
+  describe "#touch" do
     it "sets the timestamps" do
       Timecop.freeze
 
@@ -60,7 +59,14 @@ describe Collector::Model do
 
       test_model.created_at.must_equal now.utc
     end
+  end
 
+  describe "#attributes" do
+    it "returns a hash of instance variable names and their values" do
+      TestModel.send(:attr_writer, :name)
+      test_model = TestModel.new(name: "Foobar", created_at: 123)
+      test_model.attributes.must_equal({ "name" => "Foobar", "created_at" => 123 })
+    end
   end
 
 end
