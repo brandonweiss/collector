@@ -10,12 +10,10 @@ module Collector
     def initialize(attributes = {})
       attributes.symbolize_keys!
 
-      attributes.each do |attribute, value|
-        send("#{attribute}=", value) if methods.include? "#{attribute}=".to_sym
+      attributes.each do |key, value|
+        instance_variable_set("@#{key}", value) if methods.include? "#{key}".to_sym
+        send("#{key}=", value)                  if methods.include? "#{key}=".to_sym
       end
-
-      instance_variable_set("@created_at", attributes[:created_at]) if attributes[:created_at]
-      instance_variable_set("@updated_at", attributes[:updated_at]) if attributes[:updated_at]
     end
 
     def touch

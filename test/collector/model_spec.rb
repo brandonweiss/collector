@@ -9,15 +9,15 @@ describe Collector::Model do
     end
   end
 
-  it "sets attributes during initialization if a writer exists" do
+  it "sets attributes via instance variable during initialization if a reader exists" do
     TestModel.send(:attr_reader, :foo)
-    TestModel.send(:attr_writer, :foo)
     TestModel.new(foo: "bar").foo.must_equal "bar"
   end
 
-  it "does not set attributes during initialization if a writer does not exist" do
+  it "sets attributes via writer if a writer exists" do
     TestModel.send(:attr_reader, :foo)
-    TestModel.new(foo: "bar").foo.must_be_nil
+    TestModel.send(:attr_writer, :foo)
+    TestModel.new(foo: "bar").foo.must_equal "bar"
   end
 
   it "has a created_at and updated_at timestamp" do
@@ -25,13 +25,6 @@ describe Collector::Model do
     test_model = TestModel.new
     test_model.instance_variable_set("@created_at", now)
     test_model.created_at.must_equal now
-  end
-
-  it "sets timestamps via instance variables during initialization" do
-    now        = Time.now
-    test_model = TestModel.new(created_at: now, updated_at: now)
-    test_model.created_at.must_equal now
-    test_model.updated_at.must_equal now
   end
 
   describe "#touch" do
