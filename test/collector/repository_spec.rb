@@ -83,4 +83,17 @@ describe Collector::Repository do
     end
   end
 
+  describe "all" do
+    it "returns all documents in a collection" do
+      document_1 = stub
+      document_2 = stub
+      documents  = [document_1, document_2]
+      TestRepository.expects(:deserialize!).with(document_1)
+      TestRepository.expects(:deserialize!).with(document_2)
+      collection = mock { expects(:find_all).returns(documents) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.all
+    end
+  end
+
 end

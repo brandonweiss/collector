@@ -43,12 +43,6 @@ module Collector
         model.attributes.with_indifferent_access
       end
 
-      # def all
-      #   collection.find_all.map do |document|
-      #     deserialize!(document)
-      #   end
-      # end
-
       def deserialize!(attributes)
         attributes       = attributes.with_indifferent_access
         attributes["id"] = attributes.delete("_id")
@@ -57,6 +51,12 @@ module Collector
 
       def deserialize(attributes)
         model.new(attributes)
+      end
+
+      def all
+        collection.find_all.map do |document|
+          deserialize!(document)
+        end
       end
 
     end
