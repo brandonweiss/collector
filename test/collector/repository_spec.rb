@@ -17,7 +17,7 @@ describe Collector::Repository do
     TestRepository.collection_name.must_equal "tests"
   end
 
-  describe "#collection" do
+  describe "collection" do
     describe "when a connection is set" do
       it "returns the mongo collection" do
         collection = mock()
@@ -29,7 +29,7 @@ describe Collector::Repository do
     end
   end
 
-  describe "#save" do
+  describe "save" do
     it "touches the model and then saves it" do
       model = mock(:touch)
       TestRepository.expects(:save_without_updating_timestamps).with(model)
@@ -37,10 +37,10 @@ describe Collector::Repository do
     end
   end
 
-  describe "#save_without_updating_timestamps" do
+  describe "save_without_updating_timestamps" do
     it "serializes the model and then inserts it into the collection" do
       model = stub()
-      TestRepository.expects(:serialize).with(model).returns({ foo: "bar" })
+      TestRepository.expects(:serialize!).with(model).returns({ foo: "bar" })
 
       collection = mock(insert: { foo: "bar" })
       TestRepository.stubs(:collection).returns(collection)
@@ -49,10 +49,37 @@ describe Collector::Repository do
     end
   end
 
-  describe "#serialize" do
-    it "returns a models attributes without nil values" do
+  describe "serialize!" do
+    it "normalize id to _id" do
+      model = mock(attributes: { id: 123, foo: "bar" })
+      TestRepository.serialize!(model).must_equal({ "_id" => 123, "foo" => "bar" })
+    end
+
+    it "returns a model's attributes without nil values" do
       model = mock(attributes: { foo: "bar", nothing: nil })
-      TestRepository.serialize(model).must_equal({ foo: "bar" })
+      TestRepository.serialize!(model).must_equal({ "foo" => "bar" })
+    end
+  end
+
+  describe "serialize" do
+    it "returns a model's attributes" do
+      model = mock(attributes: { foo: "bar" })
+      TestRepository.serialize(model).must_equal({ "foo" => "bar" })
+    end
+  end
+
+  describe "deserialize!" do
+    it "normalizes _id to id" do
+      TestRepository.expects(:deserialize).with("id" => 123, "name" => "Brandon")
+      TestRepository.deserialize!(_id: 123, name: "Brandon")
+    end
+  end
+
+  describe "deserialize" do
+    it "instantiates a new model from a hash of attributes" do
+      attributes = { first_name: "Brandon", last_name: "Weiss" }
+      TestRepository.model.expects(:new).with(attributes)
+      TestRepository.deserialize(attributes)
     end
   end
 

@@ -20,6 +20,12 @@ describe Collector::Model do
     TestModel.new(foo: "bar").foo.must_equal "bar"
   end
 
+  it "has an id" do
+    test_model = TestModel.new
+    test_model.instance_variable_set("@id", "foobar")
+    test_model.id.must_equal "foobar"
+  end
+
   it "has a created_at and updated_at timestamp" do
     now        = Time.now
     test_model = TestModel.new
