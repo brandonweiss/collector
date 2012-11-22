@@ -96,4 +96,21 @@ describe Collector::Repository do
     end
   end
 
+  describe "finders" do
+    it "dynamically matches find_by finders" do
+      document_1 = stub
+      document_2 = stub
+      documents  = [document_1, document_2]
+      TestRepository.expects(:deserialize!).with(document_1)
+      TestRepository.expects(:deserialize!).with(document_2)
+      collection = mock { expects(:find).with(email: "foobar@fibroblast.com").returns(documents) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by_email("foobar@fibroblast.com")
+    end
+
+    it "responds to dynamically matched finders" do
+      TestRepository.respond_to?(:find_by_email).must_equal true
+    end
+  end
+
 end

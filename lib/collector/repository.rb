@@ -59,6 +59,24 @@ module Collector
         end
       end
 
+      def method_missing(method_sym, *arguments, &block)
+        if method_sym.to_s =~ /^find_by_(.*)$/
+          collection.find($1.to_sym => arguments.first).map do |document|
+            deserialize!(document)
+          end
+        else
+          super
+        end
+      end
+
+      def respond_to?(method_sym, include_private = false)
+        if method_sym.to_s =~ /^find_by_(.*)$/
+          true
+        else
+          super
+        end
+      end
+
     end
 
   end
