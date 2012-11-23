@@ -96,6 +96,17 @@ describe Collector::Repository do
     end
   end
 
+  describe "find_by_id" do
+    it "returns a document by its ID" do
+      id = "bson-id"
+      document = stub
+      TestRepository.expects(:deserialize!).with(document)
+      collection = mock { expects(:find).with(_id: id).returns(document) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by_id(id)
+    end
+  end
+
   describe "finders" do
     it "dynamically matches find_by finders" do
       document_1 = stub
