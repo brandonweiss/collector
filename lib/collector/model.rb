@@ -1,5 +1,3 @@
-require "active_support/core_ext/hash/keys"
-
 module Collector
   module Model
 
@@ -8,8 +6,6 @@ module Collector
     end
 
     def initialize(attributes = {})
-      attributes.symbolize_keys!
-
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value) if methods.include? "#{key}".to_sym
         send("#{key}=", value)                  if methods.include? "#{key}=".to_sym
