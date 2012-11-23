@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/brandonweiss/collector.png)](https://travis-ci.org/brandonweiss/collector)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/brandonweiss/collector)
 
-_Collector isn't ready for use just yet. And I don't mean it's unstable or alpha, I mean literally it doesn't do anything yet. When the basic feature set is ready I will bump the minor version (to 0.1.0)._
-
 Collector is an implementation of the Repository Pattern for MongoDB. For those new to the Repository Pattern, it is a Facade that isolates the persistence layer from your application. If you're familiar with Rails, or more specifically ActiveRecord or most other ORMs, you'll know that the models and persistence layer are tightly coupled—literally they are the same object. That pattern is a great way to cut your teeth, but ultimately it's a terrible design. Your application does not and should not care about how its data is persisted. Collector will help with that.
+
+_Collector is currently under initial development, and I mean that in the context of [semantic versioning](http://semver.org), which I follow. Initial development is anything with a major version of zero (0.x.x), which means anything may change at any time; there is no public API. I'll do my best not to wildly change anything, but if you upgrade, run your application tests to see if anything breaks. If you don't have application tests then you have failed. Go home and re-think your life choices that have brought you to this point._
 
 ## Installation
 
