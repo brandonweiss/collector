@@ -72,6 +72,15 @@ pickle = Pickle.new(brine: "vinegar", started_at: Time.now)
 PickleRepository.save(pickle)
 ```
 
+Repositories can get all models, find by ID, or find dynamically by any attribute.
+
+```ruby
+PickleRepository.all
+PickleRepository.find_by_id(BSON::ObjectId("50af1f3fb392d4aa0d000001"))
+PickleRepository.find_by_color("green")
+PickleRepository.find_by_taste("delicious")
+```
+
 ### Requirements
 
 Collector will only work with 1.9.x and above. Specifically it's tested with 1.9.2 and 1.9.3.
