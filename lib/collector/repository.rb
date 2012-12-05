@@ -54,7 +54,7 @@ module Collector
       end
 
       def all
-        collection.find_all.map do |document|
+        collection.find.map do |document|
           deserialize!(document)
         end
       end

@@ -90,7 +90,7 @@ describe Collector::Repository do
       documents  = [document_1, document_2]
       TestRepository.expects(:deserialize!).with(document_1)
       TestRepository.expects(:deserialize!).with(document_2)
-      collection = mock { expects(:find_all).returns(documents) }
+      collection = mock { expects(:find).returns(documents) }
       TestRepository.expects(:collection).returns(collection)
       TestRepository.all
     end
