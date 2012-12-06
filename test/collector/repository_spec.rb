@@ -97,11 +97,14 @@ describe Collector::Repository do
   end
 
   describe "find_by_id" do
-    it "returns a document by its ID" do
-      id = "bson-id"
-      document = stub
-      TestRepository.expects(:deserialize!).with(document)
-      collection = mock { expects(:find).with(_id: id).returns(document) }
+    it "returns documents by their ID" do
+      id         = "bson-id"
+      document_1 = stub
+      document_2 = stub
+      documents  = [document_1, document_2]
+      TestRepository.expects(:deserialize!).with(document_1)
+      TestRepository.expects(:deserialize!).with(document_2)
+      collection = mock { expects(:find).with(_id: id).returns(documents) }
       TestRepository.expects(:collection).returns(collection)
       TestRepository.find_by_id(id)
     end

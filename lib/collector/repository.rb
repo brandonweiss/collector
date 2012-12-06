@@ -60,7 +60,9 @@ module Collector
       end
 
       def find_by_id(id)
-        deserialize!(collection.find(_id: id))
+        collection.find(_id: id).map do |document|
+          deserialize!(document)
+        end
       end
 
       def method_missing(method_sym, *arguments, &block)
