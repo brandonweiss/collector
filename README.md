@@ -72,13 +72,16 @@ pickle = Pickle.new(brine: "vinegar", started_at: Time.now)
 PickleRepository.save(pickle)
 ```
 
-Repositories can get all models, find by ID, or find dynamically by any attribute.
+Repositories can find all models, find by id, find dynamically by any attribute, and then find first by id or any other attribute.
 
 ```ruby
 PickleRepository.all
 PickleRepository.find_by_id(BSON::ObjectId("50af1f3fb392d4aa0d000001"))
 PickleRepository.find_by_color("green")
 PickleRepository.find_by_taste("delicious")
+PickleRepository.find_first_by_id(BSON::ObjectId("50af1f3fb392d4aa0d000001"))
+PickleRepository.find_first_by_color("green")
+PickleRepository.find_first_by_taste("delicious")
 ```
 
 ### Requirements
