@@ -83,42 +83,55 @@ describe Collector::Repository do
     end
   end
 
-  describe "all" do
-    it "returns all documents in a collection" do
+  describe "find_by" do
+    it "finds documents by a hash of attributes" do
       document_1 = stub
       document_2 = stub
       documents  = [document_1, document_2]
       TestRepository.expects(:deserialize!).with(document_1)
       TestRepository.expects(:deserialize!).with(document_2)
-      collection = mock { expects(:find).returns(documents) }
+      collection = mock { expects(:find).with(attribute: "value").returns(documents) }
       TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by(attribute: "value")
+    end
+
+    it "finds all documents if no attributes are given" do
+      document_1 = stub
+      document_2 = stub
+      documents  = [document_1, document_2]
+      TestRepository.expects(:deserialize!).with(document_1)
+      TestRepository.expects(:deserialize!).with(document_2)
+      collection = mock { expects(:find).with({}).returns(documents) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by
+    end
+  end
+
+  describe "all" do
+    it "finds by attributes without any attributes" do
+      TestRepository.expects(:find_by).with()
       TestRepository.all
     end
   end
 
   describe "find_by_id" do
-    it "returns documents by their ID" do
-      id         = "bson-id"
-      document_1 = stub
-      document_2 = stub
-      documents  = [document_1, document_2]
-      TestRepository.expects(:deserialize!).with(document_1)
-      TestRepository.expects(:deserialize!).with(document_2)
-      collection = mock { expects(:find).with(_id: id).returns(documents) }
-      TestRepository.expects(:collection).returns(collection)
-      TestRepository.find_by_id(id)
+    it "finds by id" do
+      TestRepository.expects(:find_by).with(_id: "bson-id")
+      TestRepository.find_by_id("bson-id")
     end
   end
 
-  describe "finders" do
-    it "dynamically matches find_by finders" do
-      document_1 = stub
-      document_2 = stub
-      documents  = [document_1, document_2]
-      TestRepository.expects(:deserialize!).with(document_1)
-      TestRepository.expects(:deserialize!).with(document_2)
-      collection = mock { expects(:find).with(email: "foobar@fibroblast.com").returns(documents) }
-      TestRepository.expects(:collection).returns(collection)
+  describe "find_first_by_id" do
+    it "finds first by id" do
+      models = mock { expects(:first) }
+      TestRepository.expects(:find_by).with(_id: "bson-id").returns(models)
+      TestRepository.find_first_by_id("bson-id")
+    end
+  end
+
+  describe "dynamic finders" do
+    it "dynamically matches find_by_ finders" do
+      TestRepository.expects(:find_by).with(email: "foobar@fibroblast.com")
       TestRepository.find_by_email("foobar@fibroblast.com")
     end
 

@@ -53,23 +53,27 @@ module Collector
         model.new(attributes)
       end
 
-      def all
-        collection.find.map do |document|
+      def find_by(attributes = {})
+        collection.find(attributes).map do |document|
           deserialize!(document)
         end
       end
 
+      def all
+        find_by
+      end
+
       def find_by_id(id)
-        collection.find(_id: id).map do |document|
-          deserialize!(document)
-        end
+        find_by(_id: id)
+      end
+
+      def find_first_by_id(id)
+        find_by_id(id).first
       end
 
       def method_missing(method_sym, *arguments, &block)
         if method_sym.to_s =~ /^find_by_(.*)$/
-          collection.find($1.to_sym => arguments.first).map do |document|
-            deserialize!(document)
-          end
+          find_by($1.to_sym => arguments.first)
         else
           super
         end
