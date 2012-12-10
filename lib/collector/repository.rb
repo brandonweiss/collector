@@ -35,7 +35,7 @@ module Collector
 
       def serialize!(model)
         attributes = serialize(model)
-        attributes["_id"] = attributes.delete("id")
+        attributes["_id"] = BSON::ObjectId.from_string(attributes.delete("id")) if attributes["id"]
         attributes.reject! { |key, val| val.nil? }
         attributes
       end
@@ -46,7 +46,7 @@ module Collector
 
       def deserialize!(attributes)
         attributes       = attributes.with_indifferent_access
-        attributes["id"] = attributes.delete("_id")
+        attributes["id"] = attributes.delete("_id").to_s
         deserialize(attributes)
       end
 
