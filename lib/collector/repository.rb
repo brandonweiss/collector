@@ -1,5 +1,6 @@
 require "active_support/inflector"
 require "active_support/core_ext/hash"
+require "bson"
 
 module Collector
   module Repository
@@ -54,6 +55,7 @@ module Collector
       end
 
       def find_by(attributes = {})
+        attributes[:_id] = normalize_id(attributes[:_id]) if attributes[:_id]
         collection.find(attributes).map do |document|
           deserialize!(document)
         end
@@ -93,6 +95,12 @@ module Collector
         else
           super
         end
+      end
+
+    private
+
+      def normalize_id(id)
+        BSON::ObjectId.legal?(id) ? BSON::ObjectId.from_string(id) : id
       end
 
     end

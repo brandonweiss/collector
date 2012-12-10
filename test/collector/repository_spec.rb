@@ -105,6 +105,18 @@ describe Collector::Repository do
       TestRepository.expects(:collection).returns(collection)
       TestRepository.find_by
     end
+
+    it "normalizes the id into a BSON::ObjectId if it's valid ObjectId" do
+      collection = mock { expects(:find).with(_id: BSON::ObjectId("50c58f4ab392d4381a000001")).returns([]) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by(_id: "50c58f4ab392d4381a000001")
+    end
+
+    it "does nothing with the id if it's not a valid BSON::ObjectId" do
+      collection = mock { expects(:find).with(_id: "lols").returns([]) }
+      TestRepository.expects(:collection).returns(collection)
+      TestRepository.find_by(_id: "lols")
+    end
   end
 
   describe "find_first_by" do
