@@ -59,6 +59,10 @@ module Collector
         end
       end
 
+      def find_first_by(attributes)
+        find_by(attributes).first
+      end
+
       def all
         find_by
       end
@@ -68,12 +72,14 @@ module Collector
       end
 
       def find_first_by_id(id)
-        find_by_id(id).first
+        find_first_by(_id: id)
       end
 
       def method_missing(method_sym, *arguments, &block)
         if method_sym.to_s =~ /^find_by_(.*)$/
           find_by($1.to_sym => arguments.first)
+        elsif method_sym.to_s =~ /^find_first_by_(.*)$/
+          find_first_by($1.to_sym => arguments.first)
         else
           super
         end
@@ -81,6 +87,8 @@ module Collector
 
       def respond_to?(method_sym, include_private = false)
         if method_sym.to_s =~ /^find_by_(.*)$/
+          true
+        elsif method_sym.to_s =~ /^find_first_by_(.*)$/
           true
         else
           super

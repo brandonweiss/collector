@@ -107,6 +107,13 @@ describe Collector::Repository do
     end
   end
 
+  describe "find_first_by" do
+    it "finds the first document by a hash of attributes" do
+      TestRepository.expects(:find_by).with(attribute: "value").returns(mock(:first))
+      TestRepository.find_first_by(attribute: "value")
+    end
+  end
+
   describe "all" do
     it "finds by attributes without any attributes" do
       TestRepository.expects(:find_by).with()
@@ -123,8 +130,7 @@ describe Collector::Repository do
 
   describe "find_first_by_id" do
     it "finds first by id" do
-      models = mock { expects(:first) }
-      TestRepository.expects(:find_by).with(_id: "bson-id").returns(models)
+      TestRepository.expects(:find_first_by).with(_id: "bson-id")
       TestRepository.find_first_by_id("bson-id")
     end
   end
@@ -135,8 +141,17 @@ describe Collector::Repository do
       TestRepository.find_by_email("foobar@fibroblast.com")
     end
 
-    it "responds to dynamically matched finders" do
+    it "dynamically matches find_first_by_ finders" do
+      TestRepository.expects(:find_first_by).with(email: "foobar@fibroblast.com")
+      TestRepository.find_first_by_email("foobar@fibroblast.com")
+    end
+
+    it "responds to dynamically matched find_by_ finders" do
       TestRepository.respond_to?(:find_by_email).must_equal true
+    end
+
+    it "responds to dynamically matched find_first_by_ finders" do
+      TestRepository.respond_to?(:find_first_by_email).must_equal true
     end
   end
 
