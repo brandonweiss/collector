@@ -107,10 +107,10 @@ The specific, functional differences are:
 <table>
   <thead>
     <tr>
-      <td>Project</td>
-      <td>Stores</td>
-      <td>Test suite</td>
-      <td>Ruby version(s)</td>
+      <td><b>Project</b></td>
+      <td><b>Stores</b></td>
+      <td><b>Test suite</b></td>
+      <td><b>Ruby version(s)</b></td>
     </tr>
   </thead>
 
