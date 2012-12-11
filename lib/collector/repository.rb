@@ -30,7 +30,7 @@ module Collector
 
       def save_without_updating_timestamps(model)
         attributes = serialize!(model)
-        collection.insert(attributes)
+        collection.save(attributes)
       end
 
       def serialize!(model)

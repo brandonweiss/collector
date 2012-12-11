@@ -38,11 +38,11 @@ describe Collector::Repository do
   end
 
   describe "save_without_updating_timestamps" do
-    it "serializes the model and then inserts it into the collection" do
+    it "serializes the model and then saves it into the collection" do
       model = stub()
       TestRepository.expects(:serialize!).with(model).returns({ foo: "bar" })
 
-      collection = mock(insert: { foo: "bar" })
+      collection = mock(save: { foo: "bar" })
       TestRepository.stubs(:collection).returns(collection)
 
       TestRepository.save_without_updating_timestamps(model)
