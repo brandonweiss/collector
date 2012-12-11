@@ -102,7 +102,7 @@ If you don't already know why you need or want the Repository Pattern, then don'
 
 I rolled my own application-specific version of the Repository Pattern for each project I worked on before I realized I was using it often enough to merit extracting it into a gem. Right about that time Braintree announced curator, and since both their implentation and mine were very similar—except theirs was further along and had more features—I decided to use theirs instead. But after using it for a few months and then reading through the code to try and contribute back to it, I decided to go back to my own implementation and extract it into a gem after all.
 
-The biggest diference between curator and collector is that although curator is open source, I feel like a lot of the decisions made were and are in the interest of Braintree and the people that work there, rather than what is best for the project and the people who use it. The specific, functional differens are:
+The specific, functional differences are:
 
 <table>
   <thead>
