@@ -33,6 +33,10 @@ module Collector
         collection.save(attributes)
       end
 
+      def delete(model)
+        collection.remove(_id: normalize_id(model.id))
+      end
+
       def serialize!(model)
         attributes = serialize(model)
         attributes["_id"] = BSON::ObjectId.from_string(attributes.delete("id")) if attributes["id"]

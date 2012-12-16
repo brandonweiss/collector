@@ -49,6 +49,17 @@ describe Collector::Repository do
     end
   end
 
+  describe "delete" do
+    it "deletes the model from the collection" do
+      model = stub(id: "50c58f4ab392d4381a000001")
+
+      collection = mock { expects(:remove).with(_id: BSON::ObjectId("50c58f4ab392d4381a000001")) }
+      TestRepository.stubs(:collection).returns(collection)
+
+      TestRepository.delete(model)
+    end
+  end
+
   describe "serialize!" do
     it "normalize id to _id and converts to a BSON::ObjectId" do
       model = mock(attributes: { id: "50c58f4ab392d4381a000001", foo: "bar" })

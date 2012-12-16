@@ -84,6 +84,14 @@ PickleRepository.find_first_by_color("green")
 PickleRepository.find_first_by_taste("delicious")
 ```
 
+Repositories can delete models.
+
+```ruby
+pickle = Pickle.new(brine: "vinegar", started_at: Time.now)
+PickleRepository.save(pickle)
+PickleRepository.delete(pickle)
+```
+
 ### Requirements
 
 Collector will only work with 1.9.x and above. Specifically it's tested with 1.9.2 and 1.9.3.
