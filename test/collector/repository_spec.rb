@@ -3,6 +3,11 @@ require File.expand_path("../../test_helper.rb", __FILE__)
 describe Collector::Repository do
 
   before do
+    Object.send(:remove_const, :TestModel) if Object.const_defined?(:TestModel)
+    class TestModel
+      include Collector::Model
+    end
+
     Object.send(:remove_const, :TestRepository) if Object.const_defined?(:TestRepository)
     class TestRepository
       include Collector::Repository
@@ -46,6 +51,18 @@ describe Collector::Repository do
       TestRepository.stubs(:collection).returns(collection)
 
       TestRepository.save_without_updating_timestamps(model)
+    end
+
+    it "returns the model with the its id set" do
+      model = TestModel.new
+      TestRepository.expects(:serialize!).with(model).returns({ foo: "bar" })
+
+      collection = mock { expects(:save).with({ foo: "bar" }).returns("123abc") }
+      TestRepository.stubs(:collection).returns(collection)
+
+      updated_model = TestRepository.save_without_updating_timestamps(model)
+      updated_model.must_equal model
+      updated_model.id.must_equal "123abc"
     end
   end
 
