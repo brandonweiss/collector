@@ -33,7 +33,7 @@ Collector.connection = Mongo::Connection.new
 
 ### Models
 
-Include `Collector::Model` in your domain objects to turn them into models. Create accessors for any attributes.
+Include `Collector::Model` in your domain objects to turn them into models. Create accessors for any attributes. Accessors for `id`, `created_at`, and `updated_at` are created automatically.
 
 ```ruby
 class Pickle
