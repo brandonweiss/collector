@@ -57,7 +57,8 @@ describe Collector::Repository do
       model = TestModel.new
       TestRepository.expects(:serialize!).with(model).returns({ foo: "bar" })
 
-      collection = mock { expects(:save).with({ foo: "bar" }).returns("123abc") }
+      object_id  = stub(to_s: "123abc")
+      collection = mock { expects(:save).with({ foo: "bar" }).returns(object_id) }
       TestRepository.stubs(:collection).returns(collection)
 
       updated_model = TestRepository.save_without_updating_timestamps(model)
