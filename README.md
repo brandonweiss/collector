@@ -1,7 +1,7 @@
 # Collector
 
 [![Build Status](https://travis-ci.org/brandonweiss/collector.png)](https://travis-ci.org/brandonweiss/collector)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/brandonweiss/collector)
+[![Code Climate](https://codeclimate.com/github/brandonweiss/collector.png)](https://codeclimate.com/github/brandonweiss/collector)
 
 Collector is an implementation of the Repository Pattern for MongoDB. For those new to the Repository Pattern, it is a Facade that isolates the persistence layer from your application. If you're familiar with Rails, or more specifically ActiveRecord or most other ORMs, you'll know that the models and persistence layer are tightly coupled—literally they are the same object. That pattern is a great way to cut your teeth, but ultimately it's a terrible design. Your application does not and should not care about how its data is persisted. Collector will help with that.
 
