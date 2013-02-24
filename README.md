@@ -106,7 +106,7 @@ Currently only MongoDB. I'd like to add an in-memory store, and if possible, a f
 
 If you don't already know why you need or want the Repository Pattern, then don't use it yet. It took me far longer than it should have to realize the benefits, despite having them explained to me many times. I just never really understood them until I'd actually experienced the pain this pattern solves myself. Once you do, come back and try it out.
 
-### This looks awfully similar to [curator](http://github.com/braintreee/curator). What's the difference?
+### This looks awfully similar to [curator](http://github.com/braintree/curator). What's the difference?
 
 I rolled my own application-specific version of the Repository Pattern for each project I worked on before I realized I was using it often enough to merit extracting it into a gem. Right about that time Braintree announced curator, and since both their implentation and mine were very similar—except theirs was further along and had more features—I decided to use theirs instead. But after using it for a few months and then reading through the code to try and contribute back to it, I decided to go back to my own implementation and extract it into a gem after all.
 
