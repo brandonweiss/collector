@@ -18,6 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "activesupport", "~> 3.2.8"
-  gem.add_dependency "mongo",         "~> 1.8.0"
-  gem.add_dependency "bson",          "~> 1.8.0"
+  gem.add_dependency "mongo",         "~> 1.9.0"
+  gem.add_dependency "bson",          "~> 1.9.0"
 end
