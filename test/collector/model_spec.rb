@@ -68,4 +68,27 @@ describe Collector::Model do
     end
   end
 
+  describe "#==" do
+    it "compares two models with the same id" do
+      model_1 = TestModel.new(id: "foobar")
+      model_2 = TestModel.new(id: "foobar")
+
+      model_1.must_equal model_2
+    end
+
+    it "compares two models with different ids" do
+      model_1 = TestModel.new(id: "foobar")
+      model_2 = TestModel.new(id: "barfoo")
+
+      model_1.wont_equal model_2
+    end
+
+    it "compares two models with no ids" do
+      model_1 = TestModel.new(id: nil)
+      model_2 = TestModel.new(id: nil)
+
+      model_1.wont_equal model_2
+    end
+  end
+
 end

@@ -23,5 +23,10 @@ module Collector
       end
     end
 
+    def ==(other_model)
+      return nil if self.id.nil? || other_model.id.nil?
+      self.id == other_model.id
+    end
+
   end
 end
