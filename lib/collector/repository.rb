@@ -41,7 +41,7 @@ module Collector
 
       def serialize!(model)
         attributes = serialize(model)
-        attributes["_id"] = BSON::ObjectId.from_string(attributes.delete("id")) if attributes["id"]
+        attributes["_id"] = normalize_id(attributes.delete("id")) if attributes["id"]
         attributes.reject! { |key, val| val.nil? }
         attributes
       end

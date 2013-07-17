@@ -78,9 +78,14 @@ describe Collector::Repository do
   end
 
   describe "serialize!" do
-    it "normalize id to _id and converts to a BSON::ObjectId" do
+    it "normalize id to _id and normalize to an ObjectId" do
       model = mock(attributes: { id: "50c58f4ab392d4381a000001", foo: "bar" })
       TestModelRepository.serialize!(model).must_equal({ "_id" => BSON::ObjectId("50c58f4ab392d4381a000001"), "foo" => "bar" })
+    end
+
+    it "normalize id to _id and leave it as a string if it is not an ObjectId" do
+      model = mock(attributes: { id: "some-string", foo: "bar" })
+      TestModelRepository.serialize!(model).must_equal({ "_id" => "some-string", "foo" => "bar" })
     end
 
     it "returns a model's attributes without nil values" do
