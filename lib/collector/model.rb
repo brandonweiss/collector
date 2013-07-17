@@ -2,7 +2,8 @@ module Collector
   module Model
 
     def self.included(base)
-      attr_reader :id, :created_at, :updated_at
+      attr_accessor :id
+      attr_reader :created_at, :updated_at
     end
 
     def initialize(attributes = {})
